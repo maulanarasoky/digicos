@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class CosmeticPhoto extends Model
 {
     //
+    protected $fillable = [
+        'photo',
+        'cosmetic_id',
+    ];
 }
