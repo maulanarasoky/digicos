@@ -15,7 +15,7 @@ class CosmeticTestimonial extends Model
         'name',
         'message',
         'photo',
-        'rating',
+        'ratings',
         'cosmetic_id',
     ];
 
