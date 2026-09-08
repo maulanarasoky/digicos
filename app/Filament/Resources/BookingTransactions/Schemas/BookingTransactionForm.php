@@ -65,7 +65,7 @@ class BookingTransactionForm
                                 true => 'heroicon-o-pencil',
                                 false => 'heroicon-o-clock',
                             ])->required(),
-                            FileUpload::make('proof')->image()->required(),
+                            FileUpload::make('proof')->image()->required()->directory('proofs'),
                         ]),
                     ]),
                 ])->columnSpan('full')->columns(1)->skippable(),

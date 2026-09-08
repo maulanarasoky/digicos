@@ -18,7 +18,7 @@ class BookingTransactionController extends Controller
 
             //Handle file upload
             if ($request->hasFile('proof')) {
-                $filePath = $request->file('proof')->store('proofs', 'public');
+                $filePath = $request->file('proof')->store('proofs', 'local');
                 $validateData['proof'] = $filePath;
             }
 
@@ -60,9 +60,28 @@ class BookingTransactionController extends Controller
             }
 
             //Return booking transaction with details
-            return new BookingTransactionApiResource($bookingTransaction->load('transactionDetails'));
+            return new BookingTransactionApiResource($bookingTransaction->load(['transactionDetails', 'transactionDetails.cosmetic']));
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
+    }
+
+    public function booking_details(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string',
+            'booking_trx_id' => 'required|string',
+        ]);
+
+        $booking = BookingTransaction::where('email', $request->email)->where('booking_trx_id', $request->booking_trx_id)->with([
+            'transactionDetails',
+            'transactionDetails.cosmetic',
+        ])->first();
+
+        if (!$booking) {
+            return response()->json(['message' => 'Booking not found'], 404);
+        }
+
+        return new BookingTransactionApiResource($booking);
     }
 }
