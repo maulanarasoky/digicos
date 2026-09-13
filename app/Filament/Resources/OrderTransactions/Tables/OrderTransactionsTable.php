@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\BookingTransactions\Tables;
+namespace App\Filament\Resources\OrderTransactions\Tables;
 
 use App\Models\OrderTransaction;
 use Filament\Actions\Action;

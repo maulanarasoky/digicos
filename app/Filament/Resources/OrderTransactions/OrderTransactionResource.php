@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\OrderTransactions;
 
-use App\Filament\Resources\BookingTransactions\Tables\OrderTransactionsTable;
 use App\Filament\Resources\OrderTransactions\Pages\CreateOrderTransaction;
 use App\Filament\Resources\OrderTransactions\Pages\EditOrderTransaction;
 use App\Filament\Resources\OrderTransactions\Pages\ListOrderTransactions;
 use App\Filament\Resources\OrderTransactions\Schemas\OrderTransactionForm;
+use App\Filament\Resources\OrderTransactions\Tables\OrderTransactionsTable;
 use App\Models\OrderTransaction;
 use BackedEnum;
 use Filament\Resources\Resource;
