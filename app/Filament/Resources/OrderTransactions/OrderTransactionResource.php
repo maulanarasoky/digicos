@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\BookingTransactions;
+namespace App\Filament\Resources\OrderTransactions;
 
-use App\Filament\Resources\BookingTransactions\Pages\CreateBookingTransaction;
-use App\Filament\Resources\BookingTransactions\Pages\EditBookingTransaction;
-use App\Filament\Resources\BookingTransactions\Pages\ListBookingTransactions;
-use App\Filament\Resources\BookingTransactions\Schemas\BookingTransactionForm;
-use App\Filament\Resources\BookingTransactions\Tables\BookingTransactionsTable;
-use App\Models\BookingTransaction;
+use App\Filament\Resources\BookingTransactions\Tables\OrderTransactionsTable;
+use App\Filament\Resources\OrderTransactions\Pages\CreateOrderTransaction;
+use App\Filament\Resources\OrderTransactions\Pages\EditOrderTransaction;
+use App\Filament\Resources\OrderTransactions\Pages\ListOrderTransactions;
+use App\Filament\Resources\OrderTransactions\Schemas\OrderTransactionForm;
+use App\Models\OrderTransaction;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use UnitEnum;
 
-class BookingTransactionResource extends Resource
+class OrderTransactionResource extends Resource
 {
-    protected static ?string $model = BookingTransaction::class;
+    protected static ?string $model = OrderTransaction::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::CreditCard;
 
@@ -27,12 +27,12 @@ class BookingTransactionResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return BookingTransactionForm::configure($schema);
+        return OrderTransactionForm::configure($schema);
     }
 
     public static function table(Table $table): Table
     {
-        return BookingTransactionsTable::configure($table);
+        return OrderTransactionsTable::configure($table);
     }
 
     public static function getRelations(): array
@@ -45,9 +45,9 @@ class BookingTransactionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListBookingTransactions::route('/'),
-            'create' => CreateBookingTransaction::route('/create'),
-            'edit' => EditBookingTransaction::route('/{record}/edit'),
+            'index' => ListOrderTransactions::route('/'),
+            'create' => CreateOrderTransaction::route('/create'),
+            'edit' => EditOrderTransaction::route('/{record}/edit'),
         ];
     }
 

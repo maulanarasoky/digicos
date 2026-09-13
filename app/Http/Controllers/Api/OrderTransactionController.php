@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreBookingTransactionRequest;
-use App\Http\Resources\Api\BookingTransactionApiResource;
-use App\Models\BookingTransaction;
+use App\Http\Requests\OrderTransactionRequest;
+use App\Http\Resources\Api\OrderTransactionApiResource;
+use App\Models\OrderTransaction;
 use App\Models\Cosmetic;
 use Illuminate\Http\Request;
 
-class BookingTransactionController extends Controller
+class OrderTransactionController extends Controller
 {
-    public function store(StoreBookingTransactionRequest $request)
+    public function store(OrderTransactionRequest $request)
     {
         try {
             $validateData = $request->validated();
@@ -39,49 +39,49 @@ class BookingTransactionController extends Controller
             $tax = 0.11 * $totalPrice;
             $grandTotal = $totalPrice + $tax;
 
-            //Populate booking transaction data
-            $validateData['booking_trx_id'] = BookingTransaction::generateUniqueTrxId();
+            //Populate order transaction data
+            $validateData['order_trx_id'] = OrderTransaction::generateUniqueTrxId();
             $validateData['total_amount'] = $grandTotal;
             $validateData['total_tax_amount'] = $tax;
             $validateData['sub_total_amount'] = $totalPrice;
             $validateData['is_paid'] = false;
             $validateData['quantity'] = $totalQuantity;
 
-            $bookingTransaction = BookingTransaction::create($validateData);
+            $orderTransaction = OrderTransaction::create($validateData);
 
             //Create transaction details for each product
             foreach ($products as $product) {
                 $cosmetic = $cosmetics->firstWhere('id', $product['id']);
-                $bookingTransaction->transactionDetails()->create([
+                $orderTransaction->transactionDetails()->create([
                     'cosmetic_id' => $product['id'],
                     'quantity' => $product['quantity'],
                     'price' => $cosmetic->price,
                 ]);
             }
 
-            //Return booking transaction with details
-            return new BookingTransactionApiResource($bookingTransaction->load(['transactionDetails', 'transactionDetails.cosmetic']));
+            //Return order transaction with details
+            return new OrderTransactionApiResource($orderTransaction->load(['transactionDetails', 'transactionDetails.cosmetic']));
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred', 'error' => $e->getMessage()], 500);
         }
     }
 
-    public function booking_details(Request $request)
+    public function order_details(Request $request)
     {
         $request->validate([
             'email' => 'required|string',
-            'booking_trx_id' => 'required|string',
+            'order_trx_id' => 'required|string',
         ]);
 
-        $booking = BookingTransaction::where('email', $request->email)->where('booking_trx_id', $request->booking_trx_id)->with([
+        $order = OrderTransaction::where('email', $request->email)->where('order_trx_id', $request->order_trx_id)->with([
             'transactionDetails',
             'transactionDetails.cosmetic',
         ])->first();
 
-        if (!$booking) {
-            return response()->json(['message' => 'Booking not found'], 404);
+        if (!$order) {
+            return response()->json(['message' => 'Order is not found'], 404);
         }
 
-        return new BookingTransactionApiResource($booking);
+        return new OrderTransactionApiResource($order);
     }
 }

@@ -15,11 +15,11 @@ class TransactionDetails extends Model
         'price',
         'quantity',
         'cosmetic_id',
-        'booking_transaction_id',
+        'order_transaction_id',
     ];
 
-    public function bookingTransaction(): BelongsTo {
-        return $this->belongsTo(BookingTransaction::class, 'booking_transaction_id');
+    public function orderTransaction(): BelongsTo {
+        return $this->belongsTo(OrderTransaction::class, 'order_transaction_id');
     }
 
     public function cosmetic(): BelongsTo {

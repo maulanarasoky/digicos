@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BookingTransaction extends Model
+class OrderTransaction extends Model
 {
     //
     use SoftDeletes;
 
     protected $fillable = [
-        'booking_trx_id',
+        'order_trx_id',
         'name',
         'phone',
         'email',
@@ -31,7 +31,7 @@ class BookingTransaction extends Model
         $prefix = 'DIGICOS';
         do {
             $randomString = $prefix.mt_rand(1000, 9999);
-        } while(self::where('booking_trx_id', $randomString)->exists());
+        } while(self::where('order_trx_id', $randomString)->exists());
 
         return $randomString;
     }

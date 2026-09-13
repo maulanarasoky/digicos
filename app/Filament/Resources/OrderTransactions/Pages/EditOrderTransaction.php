@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\BookingTransactions\Pages;
+namespace App\Filament\Resources\OrderTransactions\Pages;
 
-use App\Filament\Resources\BookingTransactions\BookingTransactionResource;
+use App\Filament\Resources\OrderTransactions\OrderTransactionResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditBookingTransaction extends EditRecord
+class EditOrderTransaction extends EditRecord
 {
-    protected static string $resource = BookingTransactionResource::class;
+    protected static string $resource = OrderTransactionResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\BookingTransactions\Schemas;
+namespace App\Filament\Resources\OrderTransactions\Schemas;
 
 use App\Models\Cosmetic;
 use Filament\Forms\Components\FileUpload;
@@ -16,7 +16,7 @@ use Filament\Schemas\Components\Wizard;
 use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Schema;
 
-class BookingTransactionForm
+class OrderTransactionForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -60,7 +60,7 @@ class BookingTransactionForm
                     ]),
                     Step::make('Payment Information')->completedIcon('heroicon-m-hand-thumb-up')->description('Review your payment')->schema([
                         Grid::make(3)->schema([
-                            TextInput::make('booking_trx_id')->required()->maxLength(255),
+                            TextInput::make('order_trx_id')->required()->maxLength(255),
                             ToggleButtons::make('is_paid')->label('Apakah sudah membayar?')->boolean()->grouped()->icons([
                                 true => 'heroicon-o-pencil',
                                 false => 'heroicon-o-clock',
