@@ -19,7 +19,7 @@ class CosmeticForm
                 //
                 Fieldset::make('Details')->schema([
                     TextInput::make('name')->maxLength(255)->required(),
-                    FileUpload::make('thumbnail')->required()->image(),
+                    FileUpload::make('thumbnail')->required()->image()->disk('public'),
                     TextInput::make('price')->required()->numeric()->prefix('IDR'),
                     TextInput::make('stock')->required()->numeric()->prefix('Qtys'),
                 ]),

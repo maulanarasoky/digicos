@@ -20,7 +20,7 @@ class CategoriesTable
         return $table
             ->columns([
                 //
-                ImageColumn::make('photo'),
+                ImageColumn::make('photo')->disk('public'),
                 TextColumn::make('name')->sortable()->searchable(),
             ])
             ->filters([

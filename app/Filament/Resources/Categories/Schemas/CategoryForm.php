@@ -14,7 +14,7 @@ class CategoryForm
             ->components([
                 //
                 TextInput::make('name')->required()->maxLength(255),
-                FileUpload::make('photo')->image()->required(),
+                FileUpload::make('photo')->image()->required()->disk('public'),
             ]);
     }
 }
