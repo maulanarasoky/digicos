@@ -12,7 +12,7 @@ class CosmeticController extends Controller
     //
     public function index(Request $request)
     {
-        $cosmetics = Cosmetic::with(['brand', 'category']);
+        $cosmetics = Cosmetic::with(['brand', 'category'])->withAvg('testimonials', 'ratings');
         if ($request->has('category_id')) {
             $cosmetics->where('category_id', $request->input('category_id'));
         }
