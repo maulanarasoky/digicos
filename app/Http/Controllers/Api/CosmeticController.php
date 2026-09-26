@@ -12,7 +12,7 @@ class CosmeticController extends Controller
     //
     public function index(Request $request)
     {
-        $cosmetics = Cosmetic::with(['brand', 'category'])->withAvg('testimonials', 'ratings');
+        $cosmetics = Cosmetic::with(['brand', 'category'])->withRatings();
         if ($request->has('category_id')) {
             $cosmetics->where('category_id', $request->input('category_id'));
         }
@@ -32,6 +32,7 @@ class CosmeticController extends Controller
     public function show(Cosmetic $cosmetic)
     {
         $cosmetic->load(['category', 'benefits', 'testimonials', 'photos', 'brand']);
+        $cosmetic->loadAvg('testimonials as ratings', 'ratings');
 
         return new CosmeticApiResource($cosmetic);
     }

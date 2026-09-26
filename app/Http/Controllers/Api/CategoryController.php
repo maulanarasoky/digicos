@@ -11,7 +11,9 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::withCount(['cosmetics']);
+        $categories = Category::withCount(['cosmetics'])->with(['cosmetics' => function ($query) {
+            $query->withRatings();
+        }]);
         if ($request->has('limit')) {
             $categories->limit($request->input('limit'));
         }
@@ -21,7 +23,9 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $category->load(['cosmetics', 'popularCosmetics']);
+        $category->load(['cosmetics' => function ($query) {
+            $query->withRatings();
+        }, 'cosmetics.brand', 'popularCosmetics.brand']);
         $category->loadCount(['cosmetics']);
 
         return new CategoryApiResource($category);

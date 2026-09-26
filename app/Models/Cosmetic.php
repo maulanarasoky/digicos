@@ -49,4 +49,8 @@ class Cosmetic extends Model
     public function brand(): BelongsTo {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+
+    public function scopeWithRatings($query) {
+        return $query->withAvg('testimonials as ratings', 'ratings');
+    }
 }

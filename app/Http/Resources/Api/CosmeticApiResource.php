@@ -14,6 +14,6 @@ class CosmeticApiResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [...parent::toArray($request), 'ratings' => $this->testimonials_avg_ratings ?? 0];
+        return [...parent::toArray($request), 'ratings' => $this->ratings ?? 0];
     }
 }
