@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('quantity');
             $table->unsignedBigInteger('price');
-            $table->foreignId('booking_transaction_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('order_transaction_id')->constrained()->cascadeOnDelete();
             $table->foreignId('cosmetic_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
