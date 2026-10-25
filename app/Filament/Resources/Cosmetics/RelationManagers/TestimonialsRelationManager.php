@@ -29,7 +29,7 @@ class TestimonialsRelationManager extends RelationManager
             ->components([
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('ratings')->required()->maxLength(255),
-                FileUpload::make('photo')->image()->required(),
+                FileUpload::make('photo')->image()->required()->disk('public'),
                 Textarea::make('message')->required(),
             ]);
     }
@@ -39,7 +39,7 @@ class TestimonialsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                ImageColumn::make('photo')->circular(),
+                ImageColumn::make('photo')->circular()->disk('public'),
                 TextColumn::make('name')->searchable(),
             ])
             ->filters([
